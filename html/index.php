@@ -12,5 +12,15 @@ spl_autoload_register(function ($class_name) {
     }
 });
 
-$tpl = new TplBlock ();
+$tpl = new TplBlock();
 
+if(isset($_GET["guichet"]))
+{
+    //Show the form
+    $tplForm = new TplBlock ("formulaire");
+    $tplForm->addVars(array("plop"   => ""));
+    $tpl->addSubBlock($tplForm);
+
+}
+
+echo $tpl->applyTplFile("../templates/main.html");
