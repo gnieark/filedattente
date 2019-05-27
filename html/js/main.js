@@ -73,7 +73,7 @@ function loadForm(guichet)
 function initializeViewsTable()
 {
     for (var i = 0; i < guichetsGroupes.length; i++) {
-        var articleGroup = createElem("article",{"id": "guichetgroup" + guichetsGroupes[i]["id"]});
+        var articleGroup = createElem("article",{"id": "group" + guichetsGroupes[i]["id"]});
 
         var articleGroupTitle = createElem("h2",{});
         articleGroupTitle.innerHTML = guichetsGroupes[i]["text"];
@@ -83,6 +83,31 @@ function initializeViewsTable()
     }
 
 }
+function getGroupeId(guichetId)
+{
+    for(var i = 0; i < guichets.length; i++){
+        if(guichets[i]["id"] == guichetId)
+        {
+            return guichets[i]["group"];
+        }
+    }
+    return 0;
+}
+function add_a_call(callDef)
+{
+    if(document.getElementById("call" + callDef["guichet"])){
+        //destroy It
+        document.getElementById("call" + callDef["guichet"]).parentElement.removeChild(document.getElementById("call" + callDef["guichet"]));
+    }
+
+   
+    var container = document.getElementById("group" + getGroupeId( callDef["guichet"]) );
+    var newCall = createElem("article",{"id": "call" + callDef["guichet"] });
+    var emGuichet = createElem("em",{"class":"GuichetNumber"});
+    //******************************* */
+
+
+}    
 function refershCallsView(lastTime)
 {
     if (document.getElementById("view").innerHTML == "")
@@ -96,7 +121,9 @@ function refershCallsView(lastTime)
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var calls = JSON.parse(this.responseText);
-            
+            calls.array.forEach(function(element) {
+                add_a_call(element);
+            });
         }
     };
     xmlhttp.open("GET", "/api.php?entry=call&from_time=" + lastTime, true);
