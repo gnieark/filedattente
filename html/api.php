@@ -63,6 +63,16 @@ switch ($entryPoint){
                 );
                 break;
             case "GET":
+            
+                $sql = "SELECT guichet,ticket,call_time FROM calls WHERE call_time > :from_time ORDER BY call_time DESC";
+                $q = $con->prepare($sql);
+                $q->execute(
+                    array(
+                        ":from_time"    => (isset($_GET["from_time"]) ? $_GET["from_time"] : 0)
+                    )
+                );
+                header('Content-Type: application/json');
+                echo json_encode($q->fetchAll(PDO::FETCH_ASSOC) , true);
 
                 break;
 

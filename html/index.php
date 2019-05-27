@@ -27,25 +27,23 @@ try {
 
 $tpl = new TplBlock();
 
+
+/*
+        var guichets={{guichetsJsonList}};
+        var guichetsGroupes={{guichetsGroupesJsonList}};
+
+*/
+$tpl->addVars(array(
+    "guichetsJsonList" => file_get_contents("../config/guichets.json"),
+    "guichetsGroupesJsonList"   => file_get_contents("../config/guichets_groups.json")
+));
+
 if(isset($_GET["guichet"]))
 {
     //Show the form
     $tplForm = new TplBlock ("formulaire");
     $tplForm->addVars(array("guichet_id"   => htmlentities($_GET["guichet"])));
 
-    /*
-    $guichets = json_decode( file_get_contents("../config/guichets.json") ,true);
-    foreach($guichets as $guichet)
-    {
-        $tplGuichetOption = new TplBlock("guichets");
-        $tplGuichetOption->addVars(array(
-            "id"        => $guichet["id"],
-            "selected"  => (($_GET["guichet"] == $guichet["id"]) ? 'selected="selected"' : ''),
-            "text"      => $guichet["text"]
-        ));
-        $tplForm->addSubBlock($tplGuichetOption);
-    }
-*/
 
     $tpl->addSubBlock($tplForm);
 

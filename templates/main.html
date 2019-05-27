@@ -3,6 +3,10 @@
         <title>Gestionnaire de file d'attente</title>
         <script src="/js/main.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="/css/main.css" media="screen" />
+        <script>
+        var guichets={{guichetsJsonList}};
+        var guichetsGroupes={{guichetsGroupesJsonList}};
+        </script>
 </head>
 <body>
     <!-- BEGIN formulaire -->
@@ -12,6 +16,11 @@
         </script>
     </section>
     <!-- END formulaire -->
+    <section id="view">
+    <script>
+            refershCallsView(0);
+    </script>
+    </section>
 </body>
 
 

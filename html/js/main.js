@@ -1,3 +1,4 @@
+
 function createElem(type,attributes)
 {
     var elem=document.createElement(type);
@@ -6,24 +7,7 @@ function createElem(type,attributes)
     return elem;
 }
 
-function set_guichets_list()
-{
 
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var myArr = JSON.parse(this.responseText);
-            myArr.forEach(function(element){
-                var option = createElem("option", {"value": element["id"]});
-                option.innerHTML = element["text"];
-                document.getElementById("guichets").appendChild(option);
-            }
-            );  
-        }
-    };
-    xmlhttp.open("GET", "/api.php?entry=guichets", true);
-    xmlhttp.send();
-}
 function callNext(guichet)
 {
 
@@ -60,7 +44,13 @@ function loadForm(guichet)
     var title = createElem("h2",{});
     title.innerHTML = "Appeler un ticket:";
     container.appendChild(title);
+    
     var selectGuichets = createElem("select",{"id": "guichets"});
+    for (var i = 0; i < guichets.length; i++) {
+        var optionG = createElem("option",{"value" : guichets[i]["id"],});
+        optionG.innerHTML = guichets[i]["text"];
+        selectGuichets.appendChild(optionG);
+    }
     container.appendChild(selectGuichets);
 
     var inputTicket = createElem("input",{  "type": "number",
@@ -83,5 +73,12 @@ function loadForm(guichet)
     buttonCallNext.innerHTML="Appeler le prochain ticket";
     container.appendChild(buttonCallNext);
 
-    set_guichets_list();
+    
+}
+
+
+function refershCallsView(lastTime)
+{
+
+
 }
