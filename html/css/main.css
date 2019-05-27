@@ -1,0 +1,7 @@
+#view{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+#view article h2{
+    text-align: center;
+}

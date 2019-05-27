@@ -78,7 +78,7 @@ function initializeViewsTable()
         var articleGroupTitle = createElem("h2",{});
         articleGroupTitle.innerHTML = guichetsGroupes[i]["text"];
         articleGroup.appendChild(articleGroupTitle);
-        
+
         document.getElementById("view").appendChild(articleGroup);
     }
 
@@ -89,5 +89,17 @@ function refershCallsView(lastTime)
     {
         initializeViewsTable();
     }
+    //PutInfos
+
+    var xmlhttp = new XMLHttpRequest();
+   
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var calls = JSON.parse(this.responseText);
+            
+        }
+    };
+    xmlhttp.open("GET", "/api.php?entry=call&from_time=" + lastTime, true);
+    xmlhttp.send();
 
 }
