@@ -12,14 +12,28 @@ spl_autoload_register(function ($class_name) {
     }
 });
 
+//database connection
+
+//Get params
+$sqlparams = json_decode ( file_get_contents("../config/bdd.json"), true );
+
+// database connexion
+try {
+    $con = new PDO($sqlparams["dsn"], $sqlparams["user"], $sqlparams["password"]);
+} catch (PDOException $e) {
+    echo 'Database connection failed : ' . $e->getMessage();
+}
+
+
 $tpl = new TplBlock();
 
 if(isset($_GET["guichet"]))
 {
     //Show the form
     $tplForm = new TplBlock ("formulaire");
-    $tplForm->addVars(array("plop"   => ""));
+    $tplForm->addVars(array("guichet_id"   => htmlentities($_GET["guichet"])));
 
+    /*
     $guichets = json_decode( file_get_contents("../config/guichets.json") ,true);
     foreach($guichets as $guichet)
     {
@@ -31,7 +45,7 @@ if(isset($_GET["guichet"]))
         ));
         $tplForm->addSubBlock($tplGuichetOption);
     }
-
+*/
 
     $tpl->addSubBlock($tplForm);
 

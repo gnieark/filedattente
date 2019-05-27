@@ -6,16 +6,10 @@
 </head>
 <body>
     <!-- BEGIN formulaire -->
-    {{formulaire.plop}}
-    <section>
-        <h2>Appeler un ticket:</h2>
-        <select name="guichet">
-            <option value=""></option>
-            <!-- BEGIN formulaire.guichets -->
-            <option value="{{formulaire.guichets.id}}" {{formulaire.guichets.selected}}>{{formulaire.guichets.text}}</option>
-            <!-- END formulaire.guichets -->
-
-        </select>
+    <section id="callsForm">
+        <script>
+            loadForm('formulaire.guichet_id');
+        </script>
     </section>
     <!-- END formulaire -->
 </body>
