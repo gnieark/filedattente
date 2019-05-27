@@ -55,16 +55,12 @@ function loadForm(guichet)
     container.appendChild(inputTicket);
     var buttonCallNumber = createElem( "button", {
             "id": "buttonCallNumber",
-            "onclick": "callByNumber( document.getElementById(\"guichets\").value, document.getElementById(\"numberTicket\").value);"
+            "onclick": "callByNumber( document.getElementById(\"guichets\").value, document.getElementById(\"numberTicket\").value);",
+            "placeholder" : "Numéro du ticket à appeler"
     });
     buttonCallNumber.innerHTML="Appeler";                                           
     container.appendChild(buttonCallNumber);
     
-    var buttonCallNext = createElem("button",{
-        "id": "buttonCallNext",
-        "onclick": "callNext(document.getElementById(\"guichets\").value);"
-    });
-    buttonCallNext.innerHTML="Appeler le prochain ticket";
     container.appendChild(buttonCallNext);
 
     
@@ -83,6 +79,17 @@ function initializeViewsTable()
     }
 
 }
+function getGuichetById(id)
+{
+    for(var i=0; i < guichets.length; i++)
+    {
+        if(guichets[i]["id"]  == id){
+            return guichets[i];
+        }
+
+    }
+    return 0;
+}
 function getGroupeId(guichetId)
 {
     for(var i = 0; i < guichets.length; i++){
@@ -100,16 +107,19 @@ function add_a_call(callDef)
         document.getElementById("call" + callDef["guichet"]).parentElement.removeChild(document.getElementById("call" + callDef["guichet"]));
     }
 
+    var guichet = getGuichetById(callDef["guichet"]);
    
-    var container = document.getElementById("group" + getGroupeId( callDef["guichet"]) );
+    var container = document.getElementById("group" + guichet["group"] );
     var newCall = createElem("article",{"id": "call" + callDef["guichet"] });
     var emGuichet = createElem("em",{"class":"GuichetNumber"});
-    //******************************* */
-
+    emGuichet.innerHTML = guichet["text"];
+    newCall.appendChild(emGuichet);
+    container.appendChild(newCall);
 
 }    
-function refershCallsView(lastTime)
+function refershCallsView()
 {
+
     if (document.getElementById("view").innerHTML == "")
     {
         initializeViewsTable();
@@ -121,10 +131,17 @@ function refershCallsView(lastTime)
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var calls = JSON.parse(this.responseText);
-            calls.array.forEach(function(element) {
-                add_a_call(element);
-            });
+            for(var i = 0; i < calls.length; i ++)
+            {
+                add_a_call(calls[i]);
+                if(lastTime < calls[i]["call_time"]){
+                    lastTime = calls[i]["call_time"];
+                }
+            }
+            
+            window.setTimeout(refershCallsView, 2000);
         }
+
     };
     xmlhttp.open("GET", "/api.php?entry=call&from_time=" + lastTime, true);
     xmlhttp.send();
