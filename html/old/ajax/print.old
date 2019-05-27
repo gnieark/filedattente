@@ -1,0 +1,44 @@
+<title>RHS</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="../jquery/DataTables-1.9.4/media/css/classic.jquery.dataTables.css"rel="stylesheet" type="text/css">
+<link href="../css/flick/jquery-ui-1.10.0.custom.css" rel="stylesheet" type="text/css">
+<?php	
+$id = $_GET["id"];
+?>	
+<table class="display" cellspacing="0" width="100%" id="popTab" border="1">
+	<tbody>
+<?php 
+$xml = simplexml_load_file('../xml/rhs.xml');
+function usdate($d) {
+    //on split sur le slash
+    $D = explode('/',$d);
+    //si 3 parties on reformat au format yyyymmdd
+    if (count($D)==3){
+        $dateUs = $D[2].$D[1].$D[0];
+        return $dateUs;
+    }
+    //sinon on renvoie tel quel
+    else{
+        return $d;
+    }
+}
+$items = $xml->xpath('item[@id="'.$id.'"]');
+$item = $items[0];
+
+echo "<tr  ALIGN='CENTER' VALIGN='MIDDLE'  class='ui-state-default'><td colspan='3'>Signalement de l'agent</td></tr>";
+echo "<tr><td colspan='2' class='ui-state-default'>Date</td><td>".$item->date_signalement."</td></tr>";
+echo utf8_encode("<tr><td colspan='2' class='ui-state-default' width='20%'>Nom Prenom</td><td>".$item->name."</td></tr>");
+echo utf8_encode("<tr><td colspan='2' class='ui-state-default'>Affectation</td><td>".$item->affectation."</td></tr>");
+echo utf8_encode("<tr><td colspan='2' class='ui-state-default'>Localisation</td><td>".$item->localisation."</td></tr>");
+echo utf8_encode("<tr><td colspan='2' class='ui-state-default'>PJ</td><td>".$item->file."</td></tr>");
+// echo utf8_encode("<tr><td colspan='2' class='ui-state-default'>Cause</td><td>".$item->cause."</td></tr>");
+echo utf8_encode("<tr><td colspan='2' class='ui-state-default'>Description de l'incident</td><td>".$item->what_happened."</td></tr>");
+echo utf8_encode("<tr><td colspan='2' class='ui-state-default'>Suite de l'incident</td><td>".$item->what_did_you_do."</td></tr>");
+echo utf8_encode("<tr align='CENTER'><td colspan='4' class='ui-state-default'>Réponse de l'administration</td></tr>");
+echo utf8_encode("<tr class='ui-state-default'><td>Date</td><td>Nom de la personne qui répond</td><td>Vu en CHSCT du</td><td>Réponse</td><td>Observations</td><td>Action(s) réalisée(s)</td></tr>");
+echo utf8_encode("<tr><td>".$item->date_reponse."</td><td>".$item->name_reponse."</td><td >".$item->date_vu_chsct."</td><td>".$item->reponse."</td><td>".$item->obs_chsct."</td><td>".$item->action."</td></tr>");
+
+?>
+	</tbody>
+</table>
+<i>CTRL+P pour impression</i>

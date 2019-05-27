@@ -1,0 +1,7 @@
+40 You must provide at least one recipient email address.
+40 You must provide at least one recipient email address.
+41 You must provide at least one recipient email address.
+40 You must provide at least one recipient email address.
+29 SMTP Error: The following recipients failed: patrick.delisle@seine-maritime.gouv.fr, benoit.tribillac@seine-maritime.gouv.fr, daniel.lameille@seine-maritime.gouv.fr, david.sironneau@seine-maritime.gouv.fr, raphael.fayaz-pour@seine-maritime.gouv.fr<p>SMTP server error: 4.3.0 <raphael.fayaz-pour@seine-maritime.gouv.fr>: Temporary lookup failure
+</p>
+

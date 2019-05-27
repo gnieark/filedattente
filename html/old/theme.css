@@ -1,0 +1,97 @@
+html, body{
+	margin:0;
+	padding:0;
+	height:100%;
+	background-color: #F1F1F1;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 200;
+	border-top: 10px solid #000;
+
+}
+
+header {
+	display: block;
+    background-color : white;
+    text-align:center;
+}
+
+h2 {
+    font-size:40.0pt;
+    line-height:107%;
+    text-align: center;
+}
+
+section {
+	border: 1px solid #CCCCCC;
+
+
+	padding : 10px;
+	background-color: white;
+    margin:auto;
+    margin-top:0;
+	position: relative;
+    width: 90%;
+    background: rgba(0, 0, 0, 0) url("img/accent.png") no-repeat scroll 0 0;
+
+}
+#form1 input {
+	width:500px;
+}
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    filter:alpha(opacity=50);
+    -moz-opacity:0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+    z-index: 10000;
+}
+.tr_to_click {
+	cursor : pointer;
+}
+.tablecell {
+	overflow: hidden;
+	white-space:nowrap;
+	text-overflow: ellipsis;
+	max-width : 150px;
+}
+.trHidden {
+	background : #d4dbed;
+}
+
+div.upload {
+    width: 94px;
+    height: 94px;
+    background: url(img/upload_button-icon.gif) ;
+}
+div.upload input {
+    display: block !important;
+    width: 94px !important;
+    height: 94px !important;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.contentHome{
+	width: 850px;
+	margin : auto;
+}
+.contentHome p{
+	text-align : center;
+}
+.contentHome p a{
+	font-size : 2.3em;
+	text-decoration:none;
+	color : black;
+	text-shadow: 1px 1px 0 #444;
+}
+.contentHome p a:hover,.contentHome p a:active{
+	font-size : 2.3em;
+	text-decoration:none;
+	color : white;
+	text-shadow: 1px 1px 0 #444;
+}
