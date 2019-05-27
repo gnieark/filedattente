@@ -24,9 +24,32 @@ function set_guichets_list()
     xmlhttp.open("GET", "/api.php?entry=guichets", true);
     xmlhttp.send();
 }
+function callNext(guichet)
+{
+
+
+
+
+}
 function callByNumber(guichet,ticket)
 {
-    alert(guichet + " " + ticket);
+    document.getElementById("buttonCallNumber").disabled = true;
+    document.getElementById("buttonCallNext").disabled = true;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/api.php?entry=call", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    xhr.onreadystatechange = function() { 
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            // Request finished. Do processing here.
+            document.getElementById("numberTicket").value = "";
+            document.getElementById("buttonCallNumber").disabled = false;
+            document.getElementById("buttonCallNext").disabled = false;
+        }
+    }
+    xhr.send("guichet=" + guichet + "&ticket=" + ticket);
+
 }
 function loadForm(guichet)
 {
@@ -47,9 +70,18 @@ function loadForm(guichet)
 
     container.appendChild(inputTicket);
     var buttonCallNumber = createElem( "button", {
-                                                    "onclick": "callByNumber( document.getElementById(\"guichets\").value, document.getElementById(\"numberTicket\").value);"
-                                                });
+            "id": "buttonCallNumber",
+            "onclick": "callByNumber( document.getElementById(\"guichets\").value, document.getElementById(\"numberTicket\").value);"
+    });
     buttonCallNumber.innerHTML="Appeler";                                           
-    container.appendChild(buttonCallNumber);     
+    container.appendChild(buttonCallNumber);
+    
+    var buttonCallNext = createElem("button",{
+        "id": "buttonCallNext",
+        "onclick": "callNext(document.getElementById(\"guichets\").value);"
+    });
+    buttonCallNext.innerHTML="Appeler le prochain ticket";
+    container.appendChild(buttonCallNext);
+
     set_guichets_list();
 }
