@@ -1,0 +1,5 @@
+{
+        "dsn": "mysql:dbname=filedattente;host=localhost",
+        "user": "filedattente",
+        "password": "changeme"
+}
