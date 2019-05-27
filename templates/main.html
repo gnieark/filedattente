@@ -10,17 +10,15 @@
 </head>
 <body>
     <!-- BEGIN formulaire -->
-    <section id="callsForm">
-        <script>
-            loadForm('formulaire.guichet_id');
+    <section id="callsForm"></section>
+    <script>
+            loadForm({{formulaire.guichet_id}});
         </script>
-    </section>
     <!-- END formulaire -->
-    <section id="view">
+    <section id="view"></section>
     <script>
             refershCallsView(0);
     </script>
-    </section>
 </body>
 
 

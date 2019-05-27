@@ -1,5 +1,5 @@
-{
-    "1":"sejours",
-    "2":"plip",
-    "3":"plop"
-}
+[
+ {"id": "1", "text": "Sejour"},
+ {"id": "2", "text": "Asile"},
+ {"id": "3", "text": "Dublin"}
+]

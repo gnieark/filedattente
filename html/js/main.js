@@ -6,14 +6,8 @@ function createElem(type,attributes)
     {elem.setAttribute(i,attributes[i]);}
     return elem;
 }
-
-
 function callNext(guichet)
 {
-
-
-
-
 }
 function callByNumber(guichet,ticket)
 {
@@ -44,7 +38,7 @@ function loadForm(guichet)
     var title = createElem("h2",{});
     title.innerHTML = "Appeler un ticket:";
     container.appendChild(title);
-    
+
     var selectGuichets = createElem("select",{"id": "guichets"});
     for (var i = 0; i < guichets.length; i++) {
         var optionG = createElem("option",{"value" : guichets[i]["id"],});
@@ -76,9 +70,24 @@ function loadForm(guichet)
     
 }
 
+function initializeViewsTable()
+{
+    for (var i = 0; i < guichetsGroupes.length; i++) {
+        var articleGroup = createElem("article",{"id": "guichetgroup" + guichetsGroupes[i]["id"]});
 
+        var articleGroupTitle = createElem("h2",{});
+        articleGroupTitle.innerHTML = guichetsGroupes[i]["text"];
+        articleGroup.appendChild(articleGroupTitle);
+        
+        document.getElementById("view").appendChild(articleGroup);
+    }
+
+}
 function refershCallsView(lastTime)
 {
-
+    if (document.getElementById("view").innerHTML == "")
+    {
+        initializeViewsTable();
+    }
 
 }
