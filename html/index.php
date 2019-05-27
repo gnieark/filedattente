@@ -11,3 +11,6 @@ spl_autoload_register(function ($class_name) {
         }
     }
 });
+
+$tpl = new TplBlock ();
+
