@@ -6,13 +6,10 @@ function createElem(type,attributes)
     {elem.setAttribute(i,attributes[i]);}
     return elem;
 }
-function callNext(guichet)
-{
-}
+
 function callByNumber(guichet,ticket)
 {
     document.getElementById("buttonCallNumber").disabled = true;
-    document.getElementById("buttonCallNext").disabled = true;
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/api.php?entry=call", true);
@@ -23,7 +20,6 @@ function callByNumber(guichet,ticket)
             // Request finished. Do processing here.
             document.getElementById("numberTicket").value = "";
             document.getElementById("buttonCallNumber").disabled = false;
-            document.getElementById("buttonCallNext").disabled = false;
         }
     }
     xhr.send("guichet=" + guichet + "&ticket=" + ticket);
@@ -56,14 +52,11 @@ function loadForm(guichet)
     var buttonCallNumber = createElem( "button", {
             "id": "buttonCallNumber",
             "onclick": "callByNumber( document.getElementById(\"guichets\").value, document.getElementById(\"numberTicket\").value);",
-            "placeholder" : "Numéro du ticket à appeler"
+            "placeHolder" : "Numéro du ticket à appeler"
     });
     buttonCallNumber.innerHTML="Appeler";                                           
     container.appendChild(buttonCallNumber);
-    
-    container.appendChild(buttonCallNext);
-
-    
+    container.appendChild(buttonCallNext);  
 }
 
 function initializeViewsTable()
@@ -110,12 +103,30 @@ function add_a_call(callDef)
     var guichet = getGuichetById(callDef["guichet"]);
    
     var container = document.getElementById("group" + guichet["group"] );
-    var newCall = createElem("article",{"id": "call" + callDef["guichet"] });
+    var newCall = createElem("article",{"id": "call" + callDef["guichet"], "class":"call" });
+
+    var emNumeroAppele = createElem("em",{"class": "numeroappele"});
+    emNumeroAppele.innerHTML = "numéro appelé";
+    newCall.appendChild(emNumeroAppele);
+
     var emGuichet = createElem("em",{"class":"GuichetNumber"});
     emGuichet.innerHTML = guichet["text"];
     newCall.appendChild(emGuichet);
-    container.appendChild(newCall);
 
+    var emguichettitre = createElem("em",{"class": "guichetTitre"});
+    emguichettitre.innerHTML = "Guichet";
+    newCall.appendChild(emguichettitre);
+
+    var emTicket = createElem("em",{"class":"ticketnumber"});
+    emTicket.innerHTML =  callDef["ticket"];
+    newCall.appendChild(emTicket);
+
+
+    //container.appendChild(newCall);
+    container.insertBefore(newCall, container.children[1]);
+
+    var audio = new Audio('/bell.wav');
+    audio.play();
 }    
 function refershCallsView()
 {
@@ -138,10 +149,8 @@ function refershCallsView()
                     lastTime = calls[i]["call_time"];
                 }
             }
-            
             window.setTimeout(refershCallsView, 2000);
         }
-
     };
     xmlhttp.open("GET", "/api.php?entry=call&from_time=" + lastTime, true);
     xmlhttp.send();

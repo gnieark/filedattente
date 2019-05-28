@@ -64,7 +64,8 @@ switch ($entryPoint){
                 break;
             case "GET":
             
-                $sql = "SELECT guichet,ticket,TIMESTAMP(call_time) as call_time FROM calls WHERE call_time > :from_time ORDER BY call_time DESC";
+                $sql = "SELECT guichet,ticket,UNIX_TIMESTAMP(call_time) as call_time 
+                FROM calls WHERE UNIX_TIMESTAMP(call_time) > :from_time ORDER BY call_time DESC";
                 $q = $con->prepare($sql);
                 $q->execute(
                     array(

@@ -1,3 +1,4 @@
+html{color: #333;}
 #view{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -5,3 +6,56 @@
 #view article h2{
     text-align: center;
 }
+
+.call{
+    display:grid;
+    grid-template-areas: 
+    "numeroappele numeroappele"
+    "ticketnumber ticketnumber"
+    "guichetTitre GuichetNumber";
+    grid-template-columns: 1fr 1fr ;
+    margin: 1em 1em;
+    border: solid green;
+    border-width: thin;
+   
+   
+}
+.call em {
+    text-align:center;
+    font-style: normal;
+}
+.GuichetNumber{
+ 
+    grid-area: GuichetNumber;
+    font-size: 1.5em;
+    font-weight: bold; 
+}
+.numeroappele{
+  
+    grid-area: numeroappele;
+    font-size: 1.2em;
+    background-color: green;
+    color:white;
+    text-transform: uppercase;
+}
+.guichetTitre{
+   
+    grid-area: guichetTitre;
+    font-size: 1em;
+    background-color: green;
+    color:white;
+}
+.ticketnumber{
+   
+    font-size: 3em;
+    grid-area: ticketnumber; 
+    color: green;
+    background-color: white;
+    border: solid green;
+    border-width: thin;
+    font-weight: bold; 
+}
+
+
+
+.GuichetNumber,  .ticketnumber {font-style: normal;}
