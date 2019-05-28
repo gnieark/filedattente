@@ -13,10 +13,11 @@ html{color: #333;}
     "numeroappele numeroappele"
     "ticketnumber ticketnumber"
     "guichetTitre GuichetNumber";
-    grid-template-columns: 1fr 1fr ;
+    grid-template-columns: 2fr 1fr ;
     margin: 1em 1em;
     border: solid green;
     border-width: thin;
+    align-items: center;
    
    
 }
@@ -41,9 +42,11 @@ html{color: #333;}
 .guichetTitre{
    
     grid-area: guichetTitre;
-    font-size: 1em;
+    font-size: 1.2em;
     background-color: green;
     color:white;
+    height:100%;
+    vertical-align: middle;
 }
 .ticketnumber{
    
@@ -56,6 +59,8 @@ html{color: #333;}
     font-weight: bold; 
 }
 
-
-
 .GuichetNumber,  .ticketnumber {font-style: normal;}
+
+#viewOne{
+    display: none;
+}

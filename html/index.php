@@ -27,12 +27,6 @@ try {
 
 $tpl = new TplBlock();
 
-
-/*
-        var guichets={{guichetsJsonList}};
-        var guichetsGroupes={{guichetsGroupesJsonList}};
-
-*/
 $tpl->addVars(array(
     "guichetsJsonList" => file_get_contents("../config/guichets.json"),
     "guichetsGroupesJsonList"   => file_get_contents("../config/guichets_groups.json")

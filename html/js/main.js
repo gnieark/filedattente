@@ -56,7 +56,6 @@ function loadForm(guichet)
     });
     buttonCallNumber.innerHTML="Appeler";                                           
     container.appendChild(buttonCallNumber);
-    container.appendChild(buttonCallNext);  
 }
 
 function initializeViewsTable()
@@ -93,6 +92,50 @@ function getGroupeId(guichetId)
     }
     return 0;
 }
+function hideViewOne()
+{
+    document.getElementById("viewOne").style.display = "none";
+}
+
+function clean_olds_calls()
+{
+    console.log("clean");
+
+    var xmlhttp = new XMLHttpRequest();
+   
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var calls = JSON.parse(this.responseText);
+ 
+            //create list of guichets used
+            var guichetsList = [];
+            for(var i=0; i < calls.length; i++ )
+            {
+                guichetsList.push(calls[i]["guichet"]);
+            }
+            var regex = new RegExp(/call([0-9]+)/);
+ 
+            for (var i = 0; i < guichetsGroupes.length; i++) {
+                var container = document.getElementById("group"+ guichetsGroupes[i]["id"]);
+                var chields = container.childNodes;
+                for (var j = 0; j < chields.length; j++) {
+        
+                    var match = regex.exec(chields[j].id)
+                    if(match){
+                        if (guichetsList.indexOf(match[1]) < 0) {
+                            chields[j].parentElement.removeChild(chields[j]);
+                        }
+                    }
+                }
+            }
+            window.setTimeout(clean_olds_calls, 60000);
+        }
+    };
+    xmlhttp.open("GET", "/api.php?entry=call&from_time=0", true);
+    xmlhttp.send();
+
+}
+
 function add_a_call(callDef)
 {
     if(document.getElementById("call" + callDef["guichet"])){
@@ -124,9 +167,11 @@ function add_a_call(callDef)
 
     //container.appendChild(newCall);
     container.insertBefore(newCall, container.children[1]);
-
-    var audio = new Audio('/bell.wav');
-    audio.play();
+    
+    document.getElementById("artViewOne").innerHTML = newCall.innerHTML;
+    document.getElementById("viewOne").style.display = "block";
+    sonnerie.play();
+    window.setTimeout(hideViewOne, 4000);
 }    
 function refershCallsView()
 {
@@ -154,5 +199,4 @@ function refershCallsView()
     };
     xmlhttp.open("GET", "/api.php?entry=call&from_time=" + lastTime, true);
     xmlhttp.send();
-
 }

@@ -4,9 +4,11 @@
         <script src="/js/main.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="/css/main.css" media="screen" />
         <script>
+        var sonnerie = new Audio('/bell.wav');
         var lastTime = 0;
         var guichets={{guichetsJsonList}};
         var guichetsGroupes={{guichetsGroupesJsonList}};
+        window.setTimeout(clean_olds_calls, 60000);
         </script>
 </head>
 <body>
@@ -16,6 +18,9 @@
             loadForm({{formulaire.guichet_id}});
         </script>
     <!-- END formulaire -->
+    <section id="viewOne">
+            <article class="call" id="artViewOne"></article>
+    </section>
     <section id="view"></section>
     <script>
             refershCallsView(0);
