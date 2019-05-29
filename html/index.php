@@ -32,7 +32,7 @@ if( isset($_GET["guichet"]) ||  isset($_GET["panneau"]) ){
     $tpl->addVars(array(
         "guichetsJsonList" => file_get_contents("../config/guichets.json"),
         "guichetsGroupesJsonList"   => file_get_contents("../config/guichets_groups.json"),
-        "specificInstructions" => (isset($_GET["panneau"]) ? "openFullscreen();" :"")
+        "specificInstructions" => ""
     ));
 
     if(isset($_GET["guichet"]))

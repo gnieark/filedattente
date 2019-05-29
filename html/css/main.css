@@ -6,7 +6,6 @@ html{color: #333;}
 #view article h2{
     text-align: center;
 }
-
 .call{
     display:grid;
     grid-template-areas: 
@@ -18,22 +17,24 @@ html{color: #333;}
     border-width: thin;
     align-items: center;
 }
+#group2 .call{ border: solid blue;}
+#group3 .call{border: solid purple;}
 .call em {
     text-align:center;
     font-style: normal;
 }
-
 .GuichetNumber{grid-area: GuichetNumber;}
 .numeroappele{grid-area: numeroappele;}
 .guichetTitre{grid-area: guichetTitre;}
 .ticketnumber{ grid-area: ticketnumber;}
-
 .numeroappele, .guichetTitre{
     font-size: 1.2em;
     background-color: green;
     color:white;
     text-transform: uppercase;
 }
+#group2 .call .numeroappele, #group2 .call .guichetTitre { background-color: blue;}
+#group3 .call .numeroappele, #group3 .call .guichetTitre { background-color: purple;}
 .GuichetNumber,  .ticketnumber {
     font-style: normal;
     font-size: 3em;
@@ -44,6 +45,8 @@ html{color: #333;}
     font-weight: bold; 
 }
 
+#group2 .call .GuichetNumber, #group2 .call .ticketnumber { background-color: white; color:blue;}
+#group3 .call .GuichetNumber, #group3 .call .ticketnumber { background-color: white; color: purple;}
 #viewOne{
     display: none;
 }

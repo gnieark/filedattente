@@ -1,17 +1,3 @@
-
-/* View in fullscreen */
-function openFullscreen() {
-  if (document.documentElement.requestFullscreen) {
-    document.documentElement.requestFullscreen();
-  } else if (document.documentElement.mozRequestFullScreen) { /* Firefox */
-    document.documentElement.mozRequestFullScreen();
-  } else if (document.documentElement.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-    document.documentElement.webkitRequestFullscreen();
-  } else if (document.documentElement.msRequestFullscreen) { /* IE/Edge */
-    document.documentElement.msRequestFullscreen();
-  }
-}
-
 function createElem(type,attributes)
 {
     var elem=document.createElement(type);
@@ -25,6 +11,7 @@ function callByNumber(guichet,ticket)
     document.getElementById("buttonCallNumber").disabled = true;
 
     var xhr = new XMLHttpRequest();
+    xhr.timeout = 2000;
     xhr.open("POST", "/api.php?entry=call", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
@@ -116,7 +103,8 @@ function clean_olds_calls()
     console.log("clean");
 
     var xmlhttp = new XMLHttpRequest();
-   
+    xmlhttp.timeout = 2000;
+
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var calls = JSON.parse(this.responseText);
@@ -142,12 +130,13 @@ function clean_olds_calls()
                     }
                 }
             }
+        }else if(this.readyState == 4){
+            xmlhttp.abort();
             window.setTimeout(clean_olds_calls, 60000);
         }
     };
     xmlhttp.open("GET", "/api.php?entry=call&from_time=0", true);
     xmlhttp.send();
-
 }
 
 function add_a_call(callDef)
@@ -197,7 +186,8 @@ function refershCallsView()
     //PutInfos
 
     var xmlhttp = new XMLHttpRequest();
-   
+    xmlhttp.timeout = 2000;
+
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var calls = JSON.parse(this.responseText);
@@ -209,8 +199,12 @@ function refershCallsView()
                 }
             }
             window.setTimeout(refershCallsView, 2000);
+        }else if(this.readyState == 4){
+            xmlhttp.abort();
+            window.setTimeout(refershCallsView, 4000);
         }
     };
+
     xmlhttp.open("GET", "/api.php?entry=call&from_time=" + lastTime, true);
     xmlhttp.send();
 }
