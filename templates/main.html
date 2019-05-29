@@ -15,8 +15,8 @@
     <!-- BEGIN formulaire -->
     <section id="callsForm"></section>
     <script>
-            loadForm({{formulaire.guichet_id}});
-        </script>
+        loadForm({{formulaire.guichet_id}});
+    </script>
     <!-- END formulaire -->
     <section id="viewOne">
             <article class="call" id="artViewOne"></article>
@@ -24,8 +24,7 @@
     <section id="view"></section>
     <script>
             refershCallsView(0);
+            {{specificInstructions}}
     </script>
 </body>
-
-
 </html>

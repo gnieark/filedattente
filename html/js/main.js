@@ -1,4 +1,17 @@
 
+/* View in fullscreen */
+function openFullscreen() {
+  if (document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen();
+  } else if (document.documentElement.mozRequestFullScreen) { /* Firefox */
+    document.documentElement.mozRequestFullScreen();
+  } else if (document.documentElement.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+    document.documentElement.webkitRequestFullscreen();
+  } else if (document.documentElement.msRequestFullscreen) { /* IE/Edge */
+    document.documentElement.msRequestFullscreen();
+  }
+}
+
 function createElem(type,attributes)
 {
     var elem=document.createElement(type);
@@ -20,7 +33,7 @@ function callByNumber(guichet,ticket)
             // Request finished. Do processing here.
             document.getElementById("numberTicket").value = "";
             document.getElementById("buttonCallNumber").disabled = false;
-        }
+        } 
     }
     xhr.send("guichet=" + guichet + "&ticket=" + ticket);
 
@@ -31,17 +44,18 @@ function loadForm(guichet)
     var container = document.getElementById("callsForm");
     container.innerHTML = "";
 
+    guichetDef = getGuichetById(guichet);
+
     var title = createElem("h2",{});
-    title.innerHTML = "Appeler un ticket:";
+    title.innerHTML = "Appeler un ticket au guichet " + guichetDef["text"];
     container.appendChild(title);
 
-    var selectGuichets = createElem("select",{"id": "guichets"});
-    for (var i = 0; i < guichets.length; i++) {
-        var optionG = createElem("option",{"value" : guichets[i]["id"],});
-        optionG.innerHTML = guichets[i]["text"];
-        selectGuichets.appendChild(optionG);
-    }
-    container.appendChild(selectGuichets);
+    var inputGuichet = createElem("input",{"type":"hidden",
+                                            "name":"currentGuichet",
+                                            "value":guichet,
+                                            "id":"currentGuichet"});
+    container.appendChild(inputGuichet);
+
 
     var inputTicket = createElem("input",{  "type": "number",
                                             "id":   "numberTicket",
@@ -51,7 +65,7 @@ function loadForm(guichet)
     container.appendChild(inputTicket);
     var buttonCallNumber = createElem( "button", {
             "id": "buttonCallNumber",
-            "onclick": "callByNumber( document.getElementById(\"guichets\").value, document.getElementById(\"numberTicket\").value);",
+            "onclick": "callByNumber( document.getElementById(\"currentGuichet\").value, document.getElementById(\"numberTicket\").value);",
             "placeHolder" : "Numéro du ticket à appeler"
     });
     buttonCallNumber.innerHTML="Appeler";                                           

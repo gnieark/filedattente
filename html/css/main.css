@@ -10,56 +10,39 @@ html{color: #333;}
 .call{
     display:grid;
     grid-template-areas: 
-    "numeroappele numeroappele"
-    "ticketnumber ticketnumber"
-    "guichetTitre GuichetNumber";
+    "numeroappele guichetTitre"
+    "ticketnumber GuichetNumber";
     grid-template-columns: 2fr 1fr ;
     margin: 1em 1em;
     border: solid green;
     border-width: thin;
     align-items: center;
-   
-   
 }
 .call em {
     text-align:center;
     font-style: normal;
 }
-.GuichetNumber{
- 
-    grid-area: GuichetNumber;
-    font-size: 1.5em;
-    font-weight: bold; 
-}
-.numeroappele{
-  
-    grid-area: numeroappele;
+
+.GuichetNumber{grid-area: GuichetNumber;}
+.numeroappele{grid-area: numeroappele;}
+.guichetTitre{grid-area: guichetTitre;}
+.ticketnumber{ grid-area: ticketnumber;}
+
+.numeroappele, .guichetTitre{
     font-size: 1.2em;
     background-color: green;
     color:white;
     text-transform: uppercase;
 }
-.guichetTitre{
-   
-    grid-area: guichetTitre;
-    font-size: 1.2em;
-    background-color: green;
-    color:white;
-    height:100%;
-    vertical-align: middle;
-}
-.ticketnumber{
-   
+.GuichetNumber,  .ticketnumber {
+    font-style: normal;
     font-size: 3em;
-    grid-area: ticketnumber; 
     color: green;
     background-color: white;
     border: solid green;
     border-width: thin;
     font-weight: bold; 
 }
-
-.GuichetNumber,  .ticketnumber {font-style: normal;}
 
 #viewOne{
     display: none;

@@ -27,20 +27,33 @@ try {
 
 $tpl = new TplBlock();
 
-$tpl->addVars(array(
-    "guichetsJsonList" => file_get_contents("../config/guichets.json"),
-    "guichetsGroupesJsonList"   => file_get_contents("../config/guichets_groups.json")
-));
+if( isset($_GET["guichet"]) ||  isset($_GET["panneau"]) ){
 
-if(isset($_GET["guichet"]))
-{
-    //Show the form
-    $tplForm = new TplBlock ("formulaire");
-    $tplForm->addVars(array("guichet_id"   => htmlentities($_GET["guichet"])));
+    $tpl->addVars(array(
+        "guichetsJsonList" => file_get_contents("../config/guichets.json"),
+        "guichetsGroupesJsonList"   => file_get_contents("../config/guichets_groups.json"),
+        "specificInstructions" => (isset($_GET["panneau"]) ? "openFullscreen();" :"")
+    ));
+
+    if(isset($_GET["guichet"]))
+    {
+        //Show the form
+        $tplForm = new TplBlock ("formulaire");
+        $tplForm->addVars(array("guichet_id"   => htmlentities($_GET["guichet"])));
+        $tpl->addSubBlock($tplForm);
+
+    }
+
+    echo $tpl->applyTplFile("../templates/main.html");
+}else{
 
 
-    $tpl->addSubBlock($tplForm);
-
+    $guichets = json_decode(file_get_contents("../config/guichets.json"),true);
+    foreach($guichets as $guichet)
+    {
+        $tplGuichet = new TplBlock("liensGuichets");
+        $tplGuichet->addVars($guichet);
+        $tpl->addSubBlock($tplGuichet);
+    }
+    echo $tpl->applyTplFile("../templates/accueil.html");
 }
-
-echo $tpl->applyTplFile("../templates/main.html");
