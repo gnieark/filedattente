@@ -41,6 +41,7 @@ function loadForm(guichet)
                                             "name":"currentGuichet",
                                             "value":guichet,
                                             "id":"currentGuichet"});
+
     container.appendChild(inputGuichet);
 
 
@@ -48,6 +49,12 @@ function loadForm(guichet)
                                             "id":   "numberTicket",
                                             "min": "1",
                                             "max": "9999"});
+    inputTicket .addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("buttonCallNumber").click();
+        }
+    }); 
 
     container.appendChild(inputTicket);
     var buttonCallNumber = createElem( "button", {

@@ -15,16 +15,12 @@ try {
 //cron
 $last_cron = file_get_contents("../lastcron.txt");
 
-if($last_cron < time() - (60 *5))
-{
+if($last_cron < time() - (60 *5)){
     file_put_contents("../lastcron.txt",time());
-
     //purger les appels vieux de plus de 30 min
     $sql = "DELETE FROM calls WHERE  UNIX_TIMESTAMP(call_time) < UNIX_TIMESTAMP() - 1800 ";
     $con->query($sql);
 }
-
-
 
 $entryPoint = $_GET["entry"];
 switch ($entryPoint){
