@@ -181,7 +181,7 @@ function add_a_call(callDef)
     document.getElementById("artViewOne").innerHTML = newCall.innerHTML;
     document.getElementById("viewOne").style.display = "block";
     sonnerie.play();
-    window.setTimeout(hideViewOne, 4000);
+    window.setTimeout(hideViewOne, 6000);
 }    
 function refershCallsView()
 {

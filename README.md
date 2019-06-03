@@ -17,7 +17,7 @@ It support groups of ticket office.
 * Needs php (not tested with versions under 7).
 * Create a Mysql or postgree database.
 
-* Execute the install.sql content to create the needed table.
+* Execute the config/install.sql content to create the needed table.
 
 * rename config/bdd.json.sample to config/bdd.json, and edit it with your creds.
 
