@@ -35,6 +35,7 @@ html{color: #333;}
 }
 #group2 .call .numeroappele, #group2 .call .guichetTitre { background-color: blue;}
 #group3 .call .numeroappele, #group3 .call .guichetTitre { background-color: purple;}
+#artViewOne .numeroappele, #artViewOne  .guichetTitre { background-color: red;}
 .GuichetNumber,  .ticketnumber {
     font-style: normal;
     font-size: 3em;
@@ -47,6 +48,13 @@ html{color: #333;}
 
 #group2 .call .GuichetNumber, #group2 .call .ticketnumber { background-color: white; color:blue;}
 #group3 .call .GuichetNumber, #group3 .call .ticketnumber { background-color: white; color: purple;}
+#artViewOne .GuichetNumber, #artViewOne .ticketnumber { background-color: white; color: red;}
 #viewOne{
     display: none;
+}
+#artViewOne .numeroappele, #artViewOne  .guichetTitre{
+    font-size: 4em;
+}
+#artViewOne .GuichetNumber,  #artViewOne .ticketnumber {
+    font-size: 15em;
 }
